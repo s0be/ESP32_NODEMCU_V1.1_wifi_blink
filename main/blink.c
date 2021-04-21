@@ -35,7 +35,7 @@ void fade_task_work() {
 void  got_ip() {
     ESP_LOGI("tag", "Got IP");
     if(fade_task == NULL) {
-        fade_task = xTaskCreate(fade_task_work, "fader", 4096, NULL, 5, NULL);
+        xTaskCreate(fade_task_work, "fader", 4096, NULL, 5, &fade_task);
     }
 }
 
@@ -54,7 +54,7 @@ void app_main(void)
 {
     configure_led();
     
-    wifi_init("ssid", "pass", &cb);
+    wifi_init("ssid", "password", &cb);
 
     while (1) {
         vTaskDelay(portMAX_DELAY);        
